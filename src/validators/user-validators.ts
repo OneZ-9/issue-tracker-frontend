@@ -31,7 +31,11 @@ const roleSchema = z
   .optional();
 
 export const createUserFormSchema = z.object({
-  name: nameSchema,
+  name: z
+    .string()
+    .min(2, "Name must be between 2 and 50 characters")
+    .max(50, "Name must be between 2 and 50 characters")
+    .trim(),
   email: z.string().min(1, "Email is required").email("Invalid email address"),
   password: passwordSchema,
   role: roleSchema,

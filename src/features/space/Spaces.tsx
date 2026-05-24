@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-
 import useSpaces from "@/hooks/space/useSpaces";
-import useDeleteSpace from "@/hooks/space/useDeleteSpace";
 import type { Space } from "@/types/Space";
 
 import { Button } from "@/components/ui/button";
@@ -10,21 +8,12 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import DeleteSpaceAlert from "@/features/space/DeleteSpaceAlert";
 
 import {
   LayersIcon,
@@ -33,7 +22,6 @@ import {
   PlusIcon,
   Trash2Icon,
 } from "lucide-react";
-import { useToast } from "@/components/custom/Toast";
 
 const VISIBLE_LIMIT = 3;
 
@@ -158,8 +146,6 @@ function EmptyState() {
 
 function Spaces() {
   const { spaces, isPending } = useSpaces();
-  const { showToast } = useToast();
-  const { deleteSpaceApi, isPending: isDeleting } = useDeleteSpace();
   const location = useLocation();
 
   const [spaceToDelete, setSpaceToDelete] = useState<Space | null>(null);
@@ -182,24 +168,6 @@ function Spaces() {
 
   const visibleSpaces = orderedSpaces.slice(0, VISIBLE_LIMIT);
   const overflowSpaces = orderedSpaces.slice(VISIBLE_LIMIT);
-
-  const handleDeleteConfirm = () => {
-    if (!spaceToDelete) return;
-    deleteSpaceApi(
-      { spaceId: spaceToDelete._id },
-      {
-        onSuccess: () =>
-          showToast(
-            "success",
-            "Space deleted",
-            `The space "${spaceToDelete.name}" was successfully deleted.`,
-          ),
-        onError: (error) =>
-          showToast("error", "Failed to delete space", error.message),
-        onSettled: () => setSpaceToDelete(null),
-      },
-    );
-  };
 
   // Spaces list loading state
   if (isPending) {
@@ -283,31 +251,10 @@ function Spaces() {
         </Button>
       </div>
 
-      {/* Delete confirmation dialog */}
-      <AlertDialog
-        open={!!spaceToDelete}
-        onOpenChange={(open) => !open && setSpaceToDelete(null)}
-      >
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete "{spaceToDelete?.name}"?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This will permanently delete the space and all its tickets. This
-              action cannot be undone.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              variant="destructive"
-              onClick={handleDeleteConfirm}
-              disabled={isDeleting}
-            >
-              {isDeleting ? "Deleting…" : "Delete"}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <DeleteSpaceAlert
+        space={spaceToDelete}
+        onClose={() => setSpaceToDelete(null)}
+      />
     </div>
   );
 }

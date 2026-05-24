@@ -23,6 +23,9 @@ function useUpdateTicketStatus() {
       queryClient.invalidateQueries({
         queryKey: ["tickets", variables.spaceId],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["ticket-stats", variables.spaceId],
+      });
     },
   });
 

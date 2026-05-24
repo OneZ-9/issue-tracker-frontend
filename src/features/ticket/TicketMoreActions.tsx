@@ -106,7 +106,7 @@ function TicketMoreActions({
       </Popover>
 
       <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
-        <AlertDialogContent>
+        <AlertDialogContent onClick={(e) => e.stopPropagation()}>
           <AlertDialogHeader>
             <AlertDialogTitle>Delete ticket?</AlertDialogTitle>
             <AlertDialogDescription>

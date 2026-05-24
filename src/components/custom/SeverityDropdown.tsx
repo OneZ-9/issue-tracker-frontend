@@ -6,6 +6,10 @@ import {
   ChevronUp,
   ChevronDown,
   Equal,
+  ArrowDown,
+  ArrowUp,
+  Flame,
+  ChevronsRightLeft,
 } from "lucide-react";
 
 import {
@@ -27,22 +31,22 @@ type SeverityConfig = {
 export const SEVERITY_CONFIG: Record<TicketSeverity, SeverityConfig> = {
   [TICKET_SEVERITY.LOW]: {
     label: "Low",
-    icon: ChevronDown,
+    icon: ArrowDown,
     colorClass: "text-sky-500",
   },
   [TICKET_SEVERITY.MEDIUM]: {
     label: "Medium",
-    icon: Equal,
+    icon: ChevronsRightLeft,
     colorClass: "text-amber-500",
   },
   [TICKET_SEVERITY.HIGH]: {
     label: "High",
-    icon: ChevronUp,
+    icon: ArrowUp,
     colorClass: "text-red-500",
   },
   [TICKET_SEVERITY.CRITICAL]: {
     label: "Critical",
-    icon: ChevronsUp,
+    icon: Flame,
     colorClass: "text-rose-900",
   },
 };

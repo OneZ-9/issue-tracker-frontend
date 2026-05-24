@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { NavLink, Outlet, useParams } from "react-router";
-import { Columns3, PlusIcon, Rows3 } from "lucide-react";
+import {
+  // Columns3,
+  PlusIcon,
+  Rows3,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import CreateTicketModal from "@/features/ticket/CreateTicketModal";
@@ -12,7 +16,7 @@ function SpaceLayout() {
   return (
     <div className="flex flex-1 flex-col">
       <nav className="flex items-center gap-2 border-b px-6 py-2">
-        <NavLink
+        {/* <NavLink
           to={`/issue-tracker/spaces/${spaceId}/board`}
           className={({ isActive }) =>
             `flex items-center rounded px-3 py-1.5 text-sm font-medium transition-colors ${
@@ -23,7 +27,7 @@ function SpaceLayout() {
           }
         >
           <Columns3 className="mr-2 size-4" /> Board
-        </NavLink>
+        </NavLink> */}
         <NavLink
           to={`/issue-tracker/spaces/${spaceId}/backlog`}
           className={({ isActive }) =>

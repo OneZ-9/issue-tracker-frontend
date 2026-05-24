@@ -66,7 +66,10 @@ function App() {
 
                     {/* Space detail routes */}
                     <Route path="spaces/:spaceId" element={<SpaceLayout />}>
-                      <Route index element={<Navigate to="board" replace />} />
+                      <Route
+                        index
+                        element={<Navigate to="backlog" replace />}
+                      />
 
                       <Route path="board" element={<BoardPage />} />
                       <Route path="board/:ticketId" element={<BoardPage />} />

@@ -165,7 +165,7 @@ function BacklogPage() {
       </div>
 
       {/*  Ticket list */}
-      <div className="min-h-0 flex-1 overflow-y-auto">
+      <div className="min-h-0 flex-1 overflow-y-auto md:px-4">
         {isPending ? (
           <div className="divide-y">
             {Array.from({ length: 8 }).map((_, i) => (

@@ -109,6 +109,11 @@ class TicketService {
     });
     return response;
   }
+
+  static async getKanbanData({ spaceId }: { spaceId: string }) {
+    const response = await get({ path: `/spaces/${spaceId}/tickets/kanban` });
+    return response;
+  }
 }
 
 export default TicketService;

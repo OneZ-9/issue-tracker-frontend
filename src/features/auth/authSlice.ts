@@ -9,7 +9,13 @@ import {
 import type { User } from "@/types/User";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-type AuthState = { token: string } & User;
+type SignupPending = {
+  name: string;
+  email: string;
+  password: string;
+} | null;
+
+type AuthState = { token: string; signupPending: SignupPending } & User;
 type SignInPayload = { refreshToken: string; rememberMe: boolean } & AuthState;
 
 const storedUser = getUserData<User>();
@@ -23,6 +29,7 @@ const initialState: AuthState = {
   createdAt: storedUser?.createdAt ?? "",
   updatedAt: storedUser?.updatedAt ?? "",
   token: getToken(),
+  signupPending: null,
 };
 
 export const authSlice = createSlice({
@@ -39,6 +46,7 @@ export const authSlice = createSlice({
       state.createdAt = userData.createdAt;
       state.updatedAt = userData.updatedAt;
       state.token = userData.token;
+      state.signupPending = null;
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { token: _token, ...userProfile } = userData;
@@ -56,9 +64,24 @@ export const authSlice = createSlice({
       clearTokens();
       return initialState;
     },
+    setSignupPending: (
+      state,
+      action: PayloadAction<NonNullable<SignupPending>>,
+    ) => {
+      state.signupPending = action.payload;
+    },
+    clearSignupPending: (state) => {
+      state.signupPending = null;
+    },
   },
 });
 
-export const { signIn, signOut, updateTokens } = authSlice.actions;
+export const {
+  signIn,
+  signOut,
+  updateTokens,
+  setSignupPending,
+  clearSignupPending,
+} = authSlice.actions;
 
 export default authSlice.reducer;

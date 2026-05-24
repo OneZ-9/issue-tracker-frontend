@@ -2,10 +2,6 @@ import { useState } from "react";
 import {
   ChevronDownIcon,
   CheckIcon,
-  ChevronsUp,
-  ChevronUp,
-  ChevronDown,
-  Equal,
   ArrowDown,
   ArrowUp,
   Flame,

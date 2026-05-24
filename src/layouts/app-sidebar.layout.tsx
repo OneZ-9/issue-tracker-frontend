@@ -1,4 +1,5 @@
 import { AppSidebar } from "@/components/app-sidebar";
+import ActiveSpaceHeader from "@/components/custom/ActiveSpaceHeader";
 import SideBarPageContainerWrapper from "@/components/custom/SidebarContainerWrapper";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -25,6 +26,7 @@ function AppSideBarLayout() {
             orientation="vertical"
             className="mr-2 data-[orientation=vertical]:h-4"
           />
+          <ActiveSpaceHeader />
         </header>
         <SideBarPageContainerWrapper>
           <Outlet />

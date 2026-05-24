@@ -10,6 +10,7 @@ function useSpaceById({ spaceId }: { spaceId: string }) {
   } = useQuery({
     queryKey: ["space", spaceId],
     queryFn: () => SpaceService.getSpaceById({ spaceId }),
+    enabled: Boolean(spaceId),
   });
 
   const space = data?.data || null;

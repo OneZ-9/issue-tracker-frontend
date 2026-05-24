@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, Outlet, useParams } from "react-router";
-import { PlusIcon } from "lucide-react";
+import { Columns3, PlusIcon, Rows3 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import CreateTicketModal from "@/features/ticket/CreateTicketModal";
@@ -15,26 +15,26 @@ function SpaceLayout() {
         <NavLink
           to={`/issue-tracker/spaces/${spaceId}/board`}
           className={({ isActive }) =>
-            `rounded px-3 py-1.5 text-sm font-medium transition-colors ${
+            `flex items-center rounded px-3 py-1.5 text-sm font-medium transition-colors ${
               isActive
                 ? "bg-accent text-accent-foreground"
                 : "text-muted-foreground hover:text-foreground"
             }`
           }
         >
-          Board
+          <Columns3 className="mr-2 size-4" /> Board
         </NavLink>
         <NavLink
           to={`/issue-tracker/spaces/${spaceId}/backlog`}
           className={({ isActive }) =>
-            `rounded px-3 py-1.5 text-sm font-medium transition-colors ${
+            `flex items-center rounded px-3 py-1.5 text-sm font-medium transition-colors ${
               isActive
                 ? "bg-accent text-accent-foreground"
                 : "text-muted-foreground hover:text-foreground"
             }`
           }
         >
-          Backlog
+          <Rows3 className="mr-2 size-4" /> Backlog
         </NavLink>
 
         <Button
@@ -43,7 +43,7 @@ function SpaceLayout() {
           onClick={() => setCreateOpen(true)}
         >
           <PlusIcon className="size-4" />
-          Create Issue
+          Create
         </Button>
       </nav>
 

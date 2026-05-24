@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+// import { Separator } from "@/components/ui/separator";
 import PriorityDropdown from "@/components/custom/PriorityDropdown";
 import SeverityDropdown from "@/components/custom/SeverityDropdown";
 import AssigneeDropdown from "@/components/custom/AssigneeDropdown";
@@ -130,7 +130,7 @@ function CreateTicketForm({
         </Field>
       </FieldGroup>
 
-      <Separator className="my-4" />
+      {/* <Separator /> */}
 
       {/* Attributes row: Priority · Severity · Assignee */}
       <div className="flex flex-wrap items-start gap-4">
@@ -201,7 +201,7 @@ function CreateTicketForm({
           </Button>
         )}
         <Button type="submit" disabled={isPending}>
-          {isPending ? "Creating…" : "Create ticket"}
+          {isPending ? "Creating…" : "Create Ticket"}
         </Button>
       </div>
     </form>

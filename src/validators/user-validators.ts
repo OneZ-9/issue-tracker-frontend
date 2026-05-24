@@ -31,7 +31,11 @@ const roleSchema = z
   .optional();
 
 export const createUserFormSchema = z.object({
-  name: nameSchema,
+  name: z
+    .string()
+    .min(2, "Name must be between 2 and 50 characters")
+    .max(50, "Name must be between 2 and 50 characters")
+    .trim(),
   email: z.string().min(1, "Email is required").email("Invalid email address"),
   password: passwordSchema,
   role: roleSchema,
@@ -42,6 +46,31 @@ export const createUserFormSchema = z.object({
 export const userSignInFormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
   password: z.string().min(1, "Password is required"),
+});
+
+// Frontend-only schemas (not sent directly to backend)
+export const signUpFormSchema = z
+  .object({
+    name: z
+      .string()
+      .min(1, "Name is required")
+      .min(2, "Name must be between 2 and 50 characters")
+      .max(50, "Name must be between 2 and 50 characters")
+      .trim(),
+    email: z
+      .string()
+      .min(1, "Email is required")
+      .email("Invalid email address"),
+    password: passwordSchema,
+    confirmPassword: z.string().min(1, "Please confirm your password"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+export const signInFormSchema = userSignInFormSchema.extend({
+  rememberMe: z.boolean(),
 });
 
 export const userUpdateFormSchema = z.object({
@@ -61,3 +90,5 @@ export type UserUpdatePayload = z.infer<typeof userUpdateFormSchema>;
 export type UserResetPasswordPayload = z.infer<
   typeof userResetPasswordFormSchema
 >;
+export type SignUpFormValues = z.infer<typeof signUpFormSchema>;
+export type SignInFormValues = z.infer<typeof signInFormSchema>;

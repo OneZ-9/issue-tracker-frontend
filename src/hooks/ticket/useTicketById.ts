@@ -21,6 +21,7 @@ function useTicketById({
   >({
     queryKey: ["ticket", spaceId, ticketId],
     queryFn: () => TicketService.getTicketById({ spaceId, ticketId }),
+    enabled: Boolean(spaceId && ticketId),
   });
 
   const ticket = data?.data || null;

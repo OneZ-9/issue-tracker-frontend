@@ -61,6 +61,7 @@ export const updateTicketStatusFormSchema = z.object({
 });
 
 export const listTicketsQuerySchema = z.object({
+  search: z.string().trim().optional(),
   page: z.coerce
     .number()
     .int()

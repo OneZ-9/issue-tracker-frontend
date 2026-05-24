@@ -28,7 +28,7 @@ const STAT_CARDS = [
       "border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900/40",
   },
   {
-    label: "In Progress",
+    label: "Pending",
     key: "in_progress",
     icon: CircleDot,
     iconClass: "text-blue-500",
@@ -103,13 +103,15 @@ function TicketStatsBar({ spaceId }: TicketStatsBarProps) {
               <div className="min-w-0">
                 <p
                   className={cn(
-                    "text-xl leading-none font-semibold",
+                    "leading-none font-semibold md:text-xl",
                     valueClass,
                   )}
                 >
                   {count}
                 </p>
-                <p className="text-muted-foreground mt-1 text-xs">{label}</p>
+                <p className="text-muted-foreground mt-1 text-[0.7rem] md:text-xs">
+                  {label}
+                </p>
               </div>
             </div>
           );
